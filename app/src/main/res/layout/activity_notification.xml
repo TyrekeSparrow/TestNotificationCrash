@@ -17,17 +17,19 @@
         android:layout_height="wrap_content"
         android:text="Notification activity!" />
 
+    <!--
     <Button
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:onClick="postNotification"
         android:text="postNotification" />
 
+-->
     <Button
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:onClick="getDisplay"
-        android:text="getDisplay" />
+        android:onClick="delayPostNotification"
+        android:text="delayPostNotification" />
 
     <Button
         android:layout_width="match_parent"

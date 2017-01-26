@@ -31,9 +31,9 @@ public class NotificationDetailActivity extends Activity {
 //                resId++;
                 // 0x7f020035
 //                resId = 0x7f0c0034;
-                int a = 1;
-                int b = 2;
-                resId = a + b;
+//                int a = 1;
+//                int b = 2;
+//                resId = a + b;
                 Log.d("notificationCrash", "notify_clean_logo_smallxxx resId = " + resId);
                 imageView.setImageResource(resId);
             }

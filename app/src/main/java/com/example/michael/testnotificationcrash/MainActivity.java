@@ -8,6 +8,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.v4.app.NotificationCompat;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -23,17 +25,20 @@ public class MainActivity extends Activity {
     }
 
     public void postNotification(View view) {
-        showNotification(this);
+        /*
+        final int resId = R.drawable.notify_clean_logo_smallxxx - 100;
+        postNotification(this, resId);
+        */
     }
 
     private static final int NOTIFICATION_ID = 16;
 
-    private static void showNotification(Context context) {
-        Log.d("notificationCrash", "showNotification");
+    private static void postNotification(Context context, int resId) {
+        Log.d("notificationCrash", "postNotification");
         RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.notification_apus);
         // public void setImageResource(int resId) {
 
-        Log.d("notificationCrash", "notification image src resId = " + R.drawable.notify_clean_logo_smallxxx);
+//        Log.d("notificationCrash", "postNotification notification image src resId = " + R.drawable.notify_clean_logo_smallxxx);
         /*
         Bundle bundle = new Bundle();
         bundle.putInt("resId", R.drawable.notify_clean_logo_smallxxx);
@@ -56,14 +61,26 @@ public class MainActivity extends Activity {
 //        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
         remoteViews.setOnClickPendingIntent(R.id.text_view, pendingIntent);
 
+        /*
+        int resId = R.drawable.notify_clean_logo_smallxxx;
+        resId = resId - 100;
+        */
+
+        /*
         int a = 1;
         int b = 2;
         int resIddd = a + b;
+        */
+
+
+        Log.d("notificationCrash", "postNotification resIdHex = " + Integer.toHexString(resId));
+
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context)
                 .setContentTitle("notificationTitleAPUS")
                 .setContentText("notificationTextApus")
-//                .setSmallIcon(R.drawable.notify_clean_logo_smallxxx)
-                .setSmallIcon(resIddd)
+                .setSmallIcon(resId)
+
+//                .setSmallIcon(resIddd)
 //                .setSmallIcon(R.drawable.china)
 //                .setLargeIcon(largeIcon)
 //                .setPriority(NotificationCompat.PRIORITY_MIN)
@@ -76,7 +93,18 @@ public class MainActivity extends Activity {
 //        notification.contentView = remoteViews;
 //        notification.flags = Notification.FLAG_NO_CLEAR;
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-        notificationManager.notify(NOTIFICATION_ID, notification);
+
+        Log.d("notificationCrash", "before try notificationManager.notify");
+        try {
+            Log.d("notificationCrash", "in try notificationManager.notify");
+            notificationManager.notify(NOTIFICATION_ID, notification);
+            Log.d("notificationCrash", "after try notificationManager.notify");
+//            android.app.RemoteServiceException: Bad notification posted from package com.example.michael.testnotificationcrash: Couldn't create icon: StatusBarIcon(pkg=com.example.michael.testnotificationcrashuser=0 id=0x7f020038 level=0 visible=true num=0 )
+        } catch (Exception e) {
+            Log.d("notificationCrash", "catch RemoteServiceException success!!!!!!!!");
+        }
+        Log.d("notificationCrash", "after catch notificationManager.notify");
+
 //        sleep();
 //        Log.d("notificationCrash", "notification = " + notification);
     }
@@ -100,6 +128,7 @@ public class MainActivity extends Activity {
             Thread.sleep(6 * 1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
+
         }
     }
 
@@ -113,5 +142,28 @@ public class MainActivity extends Activity {
 
 
 
+    }
+
+    public void delayPostNotification(View view) {
+//        final int resId = R.drawable.notify_clean_logo_smallxxx;
+
+        // TODO resId my be referent res none, then crash
+
+        int a = 1;
+        int b = 2;
+        final int resId = a + b;
+
+        Log.d("notificationCrash", "delayPostNotification before post resIdHex = " + Integer.toHexString(resId));
+
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                Log.d("notificationCrash", "delayPostNotification post run resIdHex = " + Integer.toHexString(resId));
+                Log.d("notificationCrash", "delayPostNotification post run current resIdHex = " + Integer.toHexString(R.drawable.notify_clean_logo_smallxxx));
+                postNotification(MainActivity.this, resId);
+            }
+        };
+        long delayMillis = 3 * 1000;
+        new Handler(Looper.getMainLooper()).postDelayed(runnable, delayMillis);
     }
 }
