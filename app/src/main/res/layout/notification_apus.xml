@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="1020px"
+    android:layout_height="300px"
+    android:background="#ff00ff00"
+    android:orientation="horizontal">
+
+    <!--
+    <ImageView
+        android:id="@+id/image_view"
+        android:layout_width="200px"
+        android:layout_height="100px"
+        android:background="#ff00fff0"
+        android:src="@drawable/notify_clean_logo_smallxxx" />
+    -->
+
+    <TextView
+        android:id="@+id/text_view"
+        android:layout_width="600px"
+        android:layout_height="200px"
+        android:background="#ffff0000"
+        android:text="notification for apus test crash" />
+</LinearLayout>
